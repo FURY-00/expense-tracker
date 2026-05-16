@@ -15,22 +15,10 @@
     padding: 20px;
   }
   
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
+  .container { max-width: 1100px; margin: 0 auto; }
   
-  /* Header */
-  .header {
-    margin-bottom: 30px;
-  }
-  
-  .header h1 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-bottom: 5px;
-  }
-  
+  .header { margin-bottom: 25px; }
+  .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; }
   .header p {
     color: #94a3b8;
     font-size: 0.95rem;
@@ -39,7 +27,42 @@
     gap: 8px;
   }
   
-  /* Notification */
+  .tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+    background: #1e293b;
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid #334155;
+  }
+  
+  .tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    color: #94a3b8;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  
+  .tab:hover { color: #cbd5e1; }
+  .tab.active {
+    background: linear-gradient(135deg, #06b6d4, #2563eb);
+    color: white;
+  }
+  
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  
   .notification {
     position: fixed;
     top: 20px;
@@ -59,23 +82,25 @@
     to { transform: translateX(0); opacity: 1; }
   }
   
-  /* Top Stats */
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 14px;
     margin-bottom: 20px;
   }
   
   .stat-card {
     border-radius: 16px;
-    padding: 22px;
+    padding: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   }
   
   .stat-card.balance { background: linear-gradient(135deg, #06b6d4, #2563eb); }
   .stat-card.spent { background: linear-gradient(135deg, #f43f5e, #ec4899); }
   .stat-card.transactions { background: linear-gradient(135deg, #8b5cf6, #a855f7); }
+  .stat-card.receivable { background: linear-gradient(135deg, #10b981, #059669); }
+  .stat-card.payable { background: linear-gradient(135deg, #f59e0b, #d97706); }
+  .stat-card.netdebt { background: linear-gradient(135deg, #6366f1, #4f46e5); }
   
   .stat-card .label {
     display: flex;
@@ -84,15 +109,11 @@
     margin-bottom: 8px;
     font-weight: 500;
     opacity: 0.95;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
   
-  .stat-card .value {
-    font-size: 2.2rem;
-    font-weight: 700;
-  }
+  .stat-card .value { font-size: 2rem; font-weight: 700; }
   
-  /* Category Breakdown */
   .category-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -120,12 +141,8 @@
   .category-card.transport .cat-label { color: #60a5fa; }
   .category-card.others .cat-label { color: #c084fc; }
   
-  .category-card .cat-value {
-    font-size: 1.25rem;
-    font-weight: 700;
-  }
+  .category-card .cat-value { font-size: 1.25rem; font-weight: 700; }
   
-  /* Forms Grid */
   .forms-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -152,13 +169,12 @@
     gap: 8px;
   }
   
-  .form-card h2 .icon-spent { color: #fb7185; }
-  .form-card h2 .icon-balance { color: #22d3ee; }
+  .icon-spent { color: #fb7185; }
+  .icon-balance { color: #22d3ee; }
+  .icon-receivable { color: #34d399; }
+  .icon-payable { color: #fbbf24; }
   
-  .form-group {
-    margin-bottom: 12px;
-  }
-  
+  .form-group { margin-bottom: 12px; }
   .form-group label {
     display: block;
     font-size: 0.85rem;
@@ -175,6 +191,7 @@
     color: #fff;
     font-size: 0.95rem;
     transition: border 0.2s;
+    font-family: inherit;
   }
   
   .form-group input:focus {
@@ -201,7 +218,6 @@
   }
   
   .cat-btn:hover { background: #475569; }
-  
   .cat-btn.active.food { background: #f97316; color: white; }
   .cat-btn.active.transportation { background: #3b82f6; color: white; }
   .cat-btn.active.others { background: #a855f7; color: white; }
@@ -225,22 +241,14 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   }
   
-  .btn-expense {
-    background: linear-gradient(135deg, #f43f5e, #ec4899);
-  }
-  .btn-expense:hover { filter: brightness(1.1); }
+  .btn-expense { background: linear-gradient(135deg, #f43f5e, #ec4899); }
+  .btn-balance { background: linear-gradient(135deg, #06b6d4, #2563eb); }
+  .btn-receivable { background: linear-gradient(135deg, #10b981, #059669); }
+  .btn-payable { background: linear-gradient(135deg, #f59e0b, #d97706); }
+  .btn-history { background: #334155; margin-top: 12px; padding: 10px; }
   
-  .btn-balance {
-    background: linear-gradient(135deg, #06b6d4, #2563eb);
-  }
-  .btn-balance:hover { filter: brightness(1.1); }
-  
-  .btn-history {
-    background: #334155;
-    margin-top: 12px;
-    padding: 10px;
-  }
-  .btn-history:hover { background: #475569; }
+  .btn:hover { filter: brightness(1.1); }
+  .btn-history:hover { background: #475569; filter: none; }
   
   .form-note {
     font-size: 0.85rem;
@@ -248,7 +256,6 @@
     margin-bottom: 12px;
   }
   
-  /* Expenses List */
   .expenses-card {
     background: #1e293b;
     border: 1px solid #334155;
@@ -256,15 +263,8 @@
     padding: 22px;
   }
   
-  .expenses-card h2 {
-    font-size: 1.2rem;
-    margin-bottom: 16px;
-  }
-  
-  .expenses-list {
-    max-height: 400px;
-    overflow-y: auto;
-  }
+  .expenses-card h2 { font-size: 1.2rem; margin-bottom: 16px; }
+  .expenses-list { max-height: 400px; overflow-y: auto; }
   
   .empty-state {
     text-align: center;
@@ -311,6 +311,8 @@
   .expense-icon.Food { background: #f97316; }
   .expense-icon.Transportation { background: #3b82f6; }
   .expense-icon.Others { background: #a855f7; }
+  .expense-icon.Receivable { background: #10b981; }
+  .expense-icon.Payable { background: #f59e0b; }
   
   .expense-info { min-width: 0; flex: 1; }
   .expense-info .purpose {
@@ -319,24 +321,29 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .expense-info .date {
+  .expense-info .date { font-size: 0.75rem; color: #94a3b8; }
+  .expense-info .note {
     font-size: 0.75rem;
-    color: #94a3b8;
+    color: #64748b;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .expense-right {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex-shrink: 0;
   }
   
-  .expense-amount {
-    color: #fb7185;
-    font-weight: 700;
-  }
+  .expense-amount { font-weight: 700; }
+  .expense-amount.negative { color: #fb7185; }
+  .expense-amount.positive { color: #34d399; }
+  .expense-amount.pending { color: #fbbf24; }
   
-  .delete-btn {
+  .action-btn {
     background: transparent;
     border: none;
     color: #64748b;
@@ -345,9 +352,67 @@
     transition: color 0.2s;
   }
   
-  .delete-btn:hover { color: #fb7185; }
+  .action-btn.delete:hover { color: #fb7185; }
+  .action-btn.settle {
+    color: #34d399;
+    font-size: 0.75rem;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  .action-btn.settle:hover {
+    background: rgba(16, 185, 129, 0.2);
+  }
   
-  /* Modal */
+  .debt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .debt-grid { grid-template-columns: 1fr; }
+  }
+  
+  .debt-list-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 22px;
+  }
+  
+  .debt-list-card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .debt-list-card .subtitle {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 15px;
+  }
+  
+  .debt-list { max-height: 400px; overflow-y: auto; }
+  
+  .debt-total {
+    background: #0f172a;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .debt-total .lbl { color: #94a3b8; font-size: 0.85rem; }
+  .debt-total .val { font-size: 1.3rem; font-weight: 700; }
+  .debt-total.receivable .val { color: #34d399; }
+  .debt-total.payable .val { color: #fbbf24; }
+  
   .modal-overlay {
     display: none;
     position: fixed;
@@ -401,15 +466,9 @@
     transition: all 0.2s;
   }
   
-  .close-btn:hover {
-    color: white;
-    background: #334155;
-  }
+  .close-btn:hover { color: white; background: #334155; }
   
-  .modal-body {
-    padding: 20px;
-    overflow-y: auto;
-  }
+  .modal-body { padding: 20px; overflow-y: auto; }
   
   .history-month {
     background: #0f172a;
@@ -426,26 +485,10 @@
     margin-bottom: 8px;
   }
   
-  .history-month-header h3 {
-    color: #22d3ee;
-    font-size: 1.1rem;
-  }
-  
-  .history-month-header .total-label {
-    font-size: 0.75rem;
-    color: #94a3b8;
-  }
-  
-  .history-month-header .total-value {
-    color: #fb7185;
-    font-weight: 700;
-  }
-  
-  .history-month-meta {
-    font-size: 0.85rem;
-    color: #94a3b8;
-    margin-bottom: 8px;
-  }
+  .history-month-header h3 { color: #22d3ee; font-size: 1.1rem; }
+  .history-month-header .total-label { font-size: 0.75rem; color: #94a3b8; }
+  .history-month-header .total-value { color: #fb7185; font-weight: 700; }
+  .history-month-meta { font-size: 0.85rem; color: #94a3b8; margin-bottom: 8px; }
   
   .history-month details summary {
     cursor: pointer;
@@ -498,7 +541,6 @@
     margin-top: 30px;
   }
   
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 8px; }
   ::-webkit-scrollbar-track { background: #0f172a; }
   ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
@@ -522,122 +564,257 @@
     </p>
   </div>
   
+  <div class="tabs">
+    <button class="tab active" data-tab="expenses">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
+      Expenses
+    </button>
+    <button class="tab" data-tab="debts">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+      Debts
+    </button>
+  </div>
+  
   <div class="notification" id="notification"></div>
   
-  <!-- Stats -->
-  <div class="stats-grid">
-    <div class="stat-card balance">
-      <div class="label">
-        <span>Current Balance</span>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
-      </div>
-      <div class="value">৳<span id="balanceValue">0.00</span></div>
-    </div>
+  <!-- EXPENSES TAB -->
+  <div class="tab-content active" id="tab-expenses">
     
-    <div class="stat-card spent">
-      <div class="label">
-        <span>Total Spent (This Month)</span>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
-      </div>
-      <div class="value">৳<span id="totalSpentValue">0.00</span></div>
-    </div>
-    
-    <div class="stat-card transactions">
-      <div class="label">
-        <span>Transactions</span>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      </div>
-      <div class="value" id="transactionCount">0</div>
-    </div>
-  </div>
-  
-  <!-- Category Breakdown -->
-  <div class="category-grid">
-    <div class="category-card food">
-      <div class="cat-label">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-5v12L3 14v-3z"/></svg>
-        Food
-      </div>
-      <div class="cat-value">৳<span id="foodTotal">0.00</span></div>
-    </div>
-    <div class="category-card transport">
-      <div class="cat-label">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>
-        Transport
-      </div>
-      <div class="cat-value">৳<span id="transportTotal">0.00</span></div>
-    </div>
-    <div class="category-card others">
-      <div class="cat-label">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        Others
-      </div>
-      <div class="cat-value">৳<span id="othersTotal">0.00</span></div>
-    </div>
-  </div>
-  
-  <!-- Forms -->
-  <div class="forms-grid">
-    <div class="form-card">
-      <h2>
-        <svg class="icon-spent" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
-        Add Today's Expense
-      </h2>
-      
-      <div class="form-group">
-        <label>Category</label>
-        <div class="category-buttons">
-          <button class="cat-btn food active" data-cat="Food">Food</button>
-          <button class="cat-btn transportation" data-cat="Transportation">Transportation</button>
-          <button class="cat-btn others" data-cat="Others">Others</button>
+    <div class="stats-grid">
+      <div class="stat-card balance">
+        <div class="label">
+          <span>Current Balance</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
         </div>
+        <div class="value">৳<span id="balanceValue">0.00</span></div>
       </div>
       
-      <div class="form-group" id="purposeGroup">
-        <label>Purpose</label>
-        <input type="text" id="purposeInput" placeholder="e.g., Books, Recharge, Gift...">
+      <div class="stat-card spent">
+        <div class="label">
+          <span>Total Spent (This Month)</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
+        </div>
+        <div class="value">৳<span id="totalSpentValue">0.00</span></div>
       </div>
       
-      <div class="form-group">
-        <label>Amount (৳)</label>
-        <input type="number" id="amountInput" placeholder="0.00" step="0.01" min="0">
+      <div class="stat-card transactions">
+        <div class="label">
+          <span>Transactions</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="value" id="transactionCount">0</div>
       </div>
-      
-      <button class="btn btn-expense" id="addExpenseBtn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Add Expense
-      </button>
     </div>
     
-    <div class="form-card">
-      <h2>
-        <svg class="icon-balance" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
-        Add to Balance
-      </h2>
-      
-      <p class="form-note">Add your salary or any income to your current account.</p>
-      
-      <div class="form-group">
-        <label>Amount (৳)</label>
-        <input type="number" id="balanceInput" placeholder="0.00" step="0.01" min="0">
+    <div class="category-grid">
+      <div class="category-card food">
+        <div class="cat-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-5v12L3 14v-3z"/></svg>
+          Food
+        </div>
+        <div class="cat-value">৳<span id="foodTotal">0.00</span></div>
+      </div>
+      <div class="category-card transport">
+        <div class="cat-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>
+          Transport
+        </div>
+        <div class="cat-value">৳<span id="transportTotal">0.00</span></div>
+      </div>
+      <div class="category-card others">
+        <div class="cat-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Others
+        </div>
+        <div class="cat-value">৳<span id="othersTotal">0.00</span></div>
+      </div>
+    </div>
+    
+    <div class="forms-grid">
+      <div class="form-card">
+        <h2>
+          <svg class="icon-spent" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
+          Add Today's Expense
+        </h2>
+        
+        <div class="form-group">
+          <label>Category</label>
+          <div class="category-buttons">
+            <button class="cat-btn food active" data-cat="Food">Food</button>
+            <button class="cat-btn transportation" data-cat="Transportation">Transport</button>
+            <button class="cat-btn others" data-cat="Others">Others</button>
+          </div>
+        </div>
+        
+        <div class="form-group" id="purposeGroup">
+          <label>Purpose</label>
+          <input type="text" id="purposeInput" placeholder="e.g., Books, Recharge, Gift...">
+        </div>
+        
+        <div class="form-group">
+          <label>Amount (৳)</label>
+          <input type="number" id="amountInput" placeholder="0.00" step="0.01" min="0">
+        </div>
+        
+        <button class="btn btn-expense" id="addExpenseBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Expense
+        </button>
       </div>
       
-      <button class="btn btn-balance" id="addBalanceBtn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Add to Account
-      </button>
-      
-      <button class="btn btn-history" id="historyBtn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><polyline points="12 7 12 12 15 15"/></svg>
-        <span>View History (<span id="historyCount">0</span> months)</span>
-      </button>
+      <div class="form-card">
+        <h2>
+          <svg class="icon-balance" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+          Add to Balance
+        </h2>
+        
+        <p class="form-note">Add your salary or any income to your current account.</p>
+        
+        <div class="form-group">
+          <label>Amount (৳)</label>
+          <input type="number" id="balanceInput" placeholder="0.00" step="0.01" min="0">
+        </div>
+        
+        <button class="btn btn-balance" id="addBalanceBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add to Account
+        </button>
+        
+        <button class="btn btn-history" id="historyBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><polyline points="12 7 12 12 15 15"/></svg>
+          <span>View History (<span id="historyCount">0</span> months)</span>
+        </button>
+      </div>
     </div>
+    
+    <div class="expenses-card">
+      <h2>This Month's Expenses</h2>
+      <div class="expenses-list" id="expensesList"></div>
+    </div>
+    
   </div>
   
-  <!-- Expenses List -->
-  <div class="expenses-card">
-    <h2>This Month's Expenses</h2>
-    <div class="expenses-list" id="expensesList"></div>
+  <!-- DEBTS TAB -->
+  <div class="tab-content" id="tab-debts">
+    
+    <div class="stats-grid">
+      <div class="stat-card receivable">
+        <div class="label">
+          <span>To Receive (People owe you)</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="12 5 12 19"/><polyline points="19 12 12 19 5 12"/></svg>
+        </div>
+        <div class="value">৳<span id="receivableTotal">0.00</span></div>
+      </div>
+      
+      <div class="stat-card payable">
+        <div class="label">
+          <span>To Pay (You owe)</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="12 19 12 5"/><polyline points="5 12 12 5 19 12"/></svg>
+        </div>
+        <div class="value">৳<span id="payableTotal">0.00</span></div>
+      </div>
+      
+      <div class="stat-card netdebt">
+        <div class="label">
+          <span>Net Position</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+        </div>
+        <div class="value">৳<span id="netDebt">0.00</span></div>
+      </div>
+    </div>
+    
+    <div class="forms-grid">
+      <div class="form-card">
+        <h2>
+          <svg class="icon-receivable" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Someone Owes You
+        </h2>
+        
+        <p class="form-note">Money you lent or someone needs to pay you back.</p>
+        
+        <div class="form-group">
+          <label>Person's Name</label>
+          <input type="text" id="recvNameInput" placeholder="e.g., Rahim">
+        </div>
+        
+        <div class="form-group">
+          <label>Amount (৳)</label>
+          <input type="number" id="recvAmountInput" placeholder="0.00" step="0.01" min="0">
+        </div>
+        
+        <div class="form-group">
+          <label>Note (optional)</label>
+          <input type="text" id="recvNoteInput" placeholder="e.g., Lunch money">
+        </div>
+        
+        <button class="btn btn-receivable" id="addReceivableBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Receivable
+        </button>
+      </div>
+      
+      <div class="form-card">
+        <h2>
+          <svg class="icon-payable" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          You Owe Someone
+        </h2>
+        
+        <p class="form-note">Money you borrowed or need to pay back.</p>
+        
+        <div class="form-group">
+          <label>Person's Name</label>
+          <input type="text" id="payNameInput" placeholder="e.g., Karim">
+        </div>
+        
+        <div class="form-group">
+          <label>Amount (৳)</label>
+          <input type="number" id="payAmountInput" placeholder="0.00" step="0.01" min="0">
+        </div>
+        
+        <div class="form-group">
+          <label>Note (optional)</label>
+          <input type="text" id="payNoteInput" placeholder="e.g., Borrowed for books">
+        </div>
+        
+        <button class="btn btn-payable" id="addPayableBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Payable
+        </button>
+      </div>
+    </div>
+    
+    <div class="debt-grid">
+      <div class="debt-list-card">
+        <h2>
+          <svg class="icon-receivable" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="12 5 12 19"/><polyline points="19 12 12 19 5 12"/></svg>
+          Receivables
+        </h2>
+        <p class="subtitle">People who owe you money</p>
+        
+        <div class="debt-total receivable">
+          <span class="lbl">Total to receive</span>
+          <span class="val">৳<span id="receivableTotal2">0.00</span></span>
+        </div>
+        
+        <div class="debt-list" id="receivableList"></div>
+      </div>
+      
+      <div class="debt-list-card">
+        <h2>
+          <svg class="icon-payable" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="12 19 12 5"/><polyline points="5 12 12 5 19 12"/></svg>
+          Payables
+        </h2>
+        <p class="subtitle">People you owe money to</p>
+        
+        <div class="debt-total payable">
+          <span class="lbl">Total to pay</span>
+          <span class="val">৳<span id="payableTotal2">0.00</span></span>
+        </div>
+        
+        <div class="debt-list" id="payableList"></div>
+      </div>
+    </div>
+    
   </div>
   
   <div class="footer">
@@ -646,7 +823,6 @@
   
 </div>
 
-<!-- History Modal -->
 <div class="modal-overlay" id="historyModal">
   <div class="modal">
     <div class="modal-header">
@@ -663,14 +839,14 @@
 </div>
 
 <script>
-  // ========== STATE ==========
   let balance = 0;
   let expenses = [];
   let history = [];
+  let receivables = [];
+  let payables = [];
   let currentMonth = '';
   let selectedCategory = 'Food';
   
-  // ========== HELPERS ==========
   function getMonthKey() {
     const now = new Date();
     return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
@@ -689,12 +865,19 @@
     setTimeout(() => { n.style.display = 'none'; }, 2500);
   }
   
-  // ========== STORAGE ==========
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+  
   function saveAll() {
     localStorage.setItem('et_balance', String(balance));
     localStorage.setItem('et_currentMonth', currentMonth);
     localStorage.setItem('et_history', JSON.stringify(history));
     localStorage.setItem(`et_expenses_${currentMonth}`, JSON.stringify(expenses));
+    localStorage.setItem('et_receivables', JSON.stringify(receivables));
+    localStorage.setItem('et_payables', JSON.stringify(payables));
   }
   
   function loadAll() {
@@ -703,11 +886,10 @@
     balance = parseFloat(localStorage.getItem('et_balance')) || 0;
     const lastMonth = localStorage.getItem('et_currentMonth') || thisMonth;
     
-    try {
-      history = JSON.parse(localStorage.getItem('et_history')) || [];
-    } catch { history = []; }
+    try { history = JSON.parse(localStorage.getItem('et_history')) || []; } catch { history = []; }
+    try { receivables = JSON.parse(localStorage.getItem('et_receivables')) || []; } catch { receivables = []; }
+    try { payables = JSON.parse(localStorage.getItem('et_payables')) || []; } catch { payables = []; }
     
-    // Check if month changed → archive last month
     if (lastMonth !== thisMonth) {
       let lastExpenses = [];
       try {
@@ -737,7 +919,6 @@
     saveAll();
   }
   
-  // ========== RENDER ==========
   function render() {
     document.getElementById('monthDisplay').textContent = getMonthName(currentMonth);
     document.getElementById('balanceValue').textContent = balance.toFixed(2);
@@ -754,12 +935,25 @@
     document.getElementById('othersTotal').textContent = othersTotal.toFixed(2);
     document.getElementById('historyCount').textContent = history.length;
     
+    const recvTotal = receivables.reduce((s, d) => s + d.amount, 0);
+    const payTotal = payables.reduce((s, d) => s + d.amount, 0);
+    const netDebt = recvTotal - payTotal;
+    
+    document.getElementById('receivableTotal').textContent = recvTotal.toFixed(2);
+    document.getElementById('payableTotal').textContent = payTotal.toFixed(2);
+    document.getElementById('receivableTotal2').textContent = recvTotal.toFixed(2);
+    document.getElementById('payableTotal2').textContent = payTotal.toFixed(2);
+    document.getElementById('netDebt').textContent = (netDebt >= 0 ? '+' : '') + netDebt.toFixed(2);
+    
     renderExpenses();
+    renderDebts();
   }
   
   function getCategoryIconSvg(cat) {
     if (cat === 'Food') return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 11l18-5v12L3 14v-3z"/></svg>';
     if (cat === 'Transportation') return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>';
+    if (cat === 'Receivable') return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="12 5 12 19"/><polyline points="19 12 12 19 5 12"/></svg>';
+    if (cat === 'Payable') return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="12 19 12 5"/><polyline points="5 12 12 5 19 12"/></svg>';
     return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>';
   }
   
@@ -767,12 +961,7 @@
     const list = document.getElementById('expensesList');
     
     if (expenses.length === 0) {
-      list.innerHTML = `
-        <div class="empty-state">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <p>No expenses recorded yet for ${getMonthName(currentMonth)}.</p>
-          <p class="sub">Add your first expense above!</p>
-        </div>`;
+      list.innerHTML = `<div class="empty-state"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><p>No expenses recorded yet for ${getMonthName(currentMonth)}.</p><p class="sub">Add your first expense above!</p></div>`;
       return;
     }
     
@@ -786,53 +975,95 @@
           </div>
         </div>
         <div class="expense-right">
-          <div class="expense-amount">-৳${exp.amount.toFixed(2)}</div>
-          <button class="delete-btn" data-id="${exp.id}" title="Delete & refund">
+          <div class="expense-amount negative">-৳${exp.amount.toFixed(2)}</div>
+          <button class="action-btn delete" data-id="${exp.id}" title="Delete & refund">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
           </button>
         </div>
       </div>
     `).join('');
     
-    document.querySelectorAll('.delete-btn').forEach(btn => {
+    document.querySelectorAll('#expensesList .action-btn.delete').forEach(btn => {
       btn.addEventListener('click', () => deleteExpense(parseInt(btn.dataset.id)));
     });
   }
   
-  function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+  function renderDebts() {
+    const recvList = document.getElementById('receivableList');
+    const payList = document.getElementById('payableList');
+    
+    if (receivables.length === 0) {
+      recvList.innerHTML = `<div class="empty-state"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><p>No receivables yet.</p><p class="sub">Track money people owe you.</p></div>`;
+    } else {
+      recvList.innerHTML = receivables.map(d => `
+        <div class="expense-item">
+          <div class="expense-left">
+            <div class="expense-icon Receivable">${getCategoryIconSvg('Receivable')}</div>
+            <div class="expense-info">
+              <div class="purpose">${escapeHtml(d.name)}</div>
+              <div class="date">${d.dateStr}</div>
+              ${d.note ? `<div class="note">${escapeHtml(d.note)}</div>` : ''}
+            </div>
+          </div>
+          <div class="expense-right">
+            <div class="expense-amount positive">+৳${d.amount.toFixed(2)}</div>
+            <button class="action-btn settle" data-id="${d.id}" data-type="receivable" title="Mark as received">✓ Settle</button>
+            <button class="action-btn delete" data-id="${d.id}" data-type="receivable" title="Delete">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    if (payables.length === 0) {
+      payList.innerHTML = `<div class="empty-state"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>No payables yet.</p><p class="sub">Track money you owe others.</p></div>`;
+    } else {
+      payList.innerHTML = payables.map(d => `
+        <div class="expense-item">
+          <div class="expense-left">
+            <div class="expense-icon Payable">${getCategoryIconSvg('Payable')}</div>
+            <div class="expense-info">
+              <div class="purpose">${escapeHtml(d.name)}</div>
+              <div class="date">${d.dateStr}</div>
+              ${d.note ? `<div class="note">${escapeHtml(d.note)}</div>` : ''}
+            </div>
+          </div>
+          <div class="expense-right">
+            <div class="expense-amount pending">৳${d.amount.toFixed(2)}</div>
+            <button class="action-btn settle" data-id="${d.id}" data-type="payable" title="Mark as paid">✓ Settle</button>
+            <button class="action-btn delete" data-id="${d.id}" data-type="payable" title="Delete">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    document.querySelectorAll('.action-btn.settle').forEach(btn => {
+      btn.addEventListener('click', () => settleDebt(parseInt(btn.dataset.id), btn.dataset.type));
+    });
+    document.querySelectorAll('#receivableList .action-btn.delete, #payableList .action-btn.delete').forEach(btn => {
+      btn.addEventListener('click', () => deleteDebt(parseInt(btn.dataset.id), btn.dataset.type));
+    });
   }
   
-  // ========== ACTIONS ==========
   function addExpense() {
     const amount = parseFloat(document.getElementById('amountInput').value);
     const purpose = document.getElementById('purposeInput').value.trim();
     
-    if (!amount || amount <= 0) {
-      showNotification('Please enter a valid amount');
-      return;
-    }
-    if (selectedCategory === 'Others' && !purpose) {
-      showNotification('Please enter the purpose');
-      return;
-    }
-    if (amount > balance) {
-      showNotification('Amount exceeds your balance!');
-      return;
-    }
+    if (!amount || amount <= 0) { showNotification('Please enter a valid amount'); return; }
+    if (selectedCategory === 'Others' && !purpose) { showNotification('Please enter the purpose'); return; }
+    if (amount > balance) { showNotification('Amount exceeds your balance!'); return; }
     
-    const newExpense = {
+    expenses.unshift({
       id: Date.now(),
       category: selectedCategory,
       purpose: selectedCategory === 'Others' ? purpose : selectedCategory,
       amount: amount,
       date: new Date().toISOString(),
       dateStr: new Date().toLocaleString()
-    };
-    
-    expenses.unshift(newExpense);
+    });
     balance -= amount;
     saveAll();
     render();
@@ -844,16 +1075,11 @@
   
   function addBalance() {
     const amount = parseFloat(document.getElementById('balanceInput').value);
-    
-    if (!amount || amount <= 0) {
-      showNotification('Please enter a valid amount');
-      return;
-    }
+    if (!amount || amount <= 0) { showNotification('Please enter a valid amount'); return; }
     
     balance += amount;
     saveAll();
     render();
-    
     document.getElementById('balanceInput').value = '';
     showNotification(`৳${amount.toFixed(2)} added to balance`);
   }
@@ -869,16 +1095,99 @@
     showNotification('Expense removed, amount refunded');
   }
   
+  function addReceivable() {
+    const name = document.getElementById('recvNameInput').value.trim();
+    const amount = parseFloat(document.getElementById('recvAmountInput').value);
+    const note = document.getElementById('recvNoteInput').value.trim();
+    
+    if (!name) { showNotification("Please enter the person's name"); return; }
+    if (!amount || amount <= 0) { showNotification('Please enter a valid amount'); return; }
+    
+    receivables.unshift({
+      id: Date.now(),
+      name: name,
+      amount: amount,
+      note: note,
+      date: new Date().toISOString(),
+      dateStr: new Date().toLocaleString()
+    });
+    saveAll();
+    render();
+    
+    document.getElementById('recvNameInput').value = '';
+    document.getElementById('recvAmountInput').value = '';
+    document.getElementById('recvNoteInput').value = '';
+    showNotification(`${name} owes you ৳${amount.toFixed(2)}`);
+  }
+  
+  function addPayable() {
+    const name = document.getElementById('payNameInput').value.trim();
+    const amount = parseFloat(document.getElementById('payAmountInput').value);
+    const note = document.getElementById('payNoteInput').value.trim();
+    
+    if (!name) { showNotification("Please enter the person's name"); return; }
+    if (!amount || amount <= 0) { showNotification('Please enter a valid amount'); return; }
+    
+    payables.unshift({
+      id: Date.now(),
+      name: name,
+      amount: amount,
+      note: note,
+      date: new Date().toISOString(),
+      dateStr: new Date().toLocaleString()
+    });
+    saveAll();
+    render();
+    
+    document.getElementById('payNameInput').value = '';
+    document.getElementById('payAmountInput').value = '';
+    document.getElementById('payNoteInput').value = '';
+    showNotification(`You owe ${name} ৳${amount.toFixed(2)}`);
+  }
+  
+  function settleDebt(id, type) {
+    if (type === 'receivable') {
+      const d = receivables.find(r => r.id === id);
+      if (!d) return;
+      if (!confirm(`Mark ৳${d.amount.toFixed(2)} from ${d.name} as received? This will add the amount to your balance.`)) return;
+      
+      balance += d.amount;
+      receivables = receivables.filter(r => r.id !== id);
+      saveAll();
+      render();
+      showNotification(`৳${d.amount.toFixed(2)} received from ${d.name}`);
+    } else {
+      const d = payables.find(p => p.id === id);
+      if (!d) return;
+      if (d.amount > balance) { showNotification('Not enough balance to settle this!'); return; }
+      if (!confirm(`Mark ৳${d.amount.toFixed(2)} to ${d.name} as paid? This will deduct from your balance.`)) return;
+      
+      balance -= d.amount;
+      payables = payables.filter(p => p.id !== id);
+      saveAll();
+      render();
+      showNotification(`৳${d.amount.toFixed(2)} paid to ${d.name}`);
+    }
+  }
+  
+  function deleteDebt(id, type) {
+    if (!confirm('Delete this entry without settling? This does not affect your balance.')) return;
+    
+    if (type === 'receivable') {
+      receivables = receivables.filter(r => r.id !== id);
+    } else {
+      payables = payables.filter(p => p.id !== id);
+    }
+    saveAll();
+    render();
+    showNotification('Entry deleted');
+  }
+  
   function showHistory() {
     const body = document.getElementById('historyBody');
     
     if (history.length === 0) {
-      body.innerHTML = `
-        <div class="empty-state">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <p>No history yet.</p>
-          <p class="sub">Your monthly records will appear here after each month ends.</p>
-        </div>`;
+      body.innerHTML = `<div class="empty-state"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><p>No history yet.</p><p class="sub">Your monthly records will appear here after each month ends.</p></div>`;
     } else {
       body.innerHTML = [...history].reverse().map(m => `
         <div class="history-month">
@@ -911,13 +1220,21 @@
     document.getElementById('historyModal').classList.add('active');
   }
   
-  // ========== EVENT LISTENERS ==========
+  // Tab switching
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+    });
+  });
+  
   document.querySelectorAll('.cat-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       selectedCategory = btn.dataset.cat;
-      
       document.getElementById('purposeGroup').style.display = 
         selectedCategory === 'Others' ? 'block' : 'none';
     });
@@ -925,6 +1242,8 @@
   
   document.getElementById('addExpenseBtn').addEventListener('click', addExpense);
   document.getElementById('addBalanceBtn').addEventListener('click', addBalance);
+  document.getElementById('addReceivableBtn').addEventListener('click', addReceivable);
+  document.getElementById('addPayableBtn').addEventListener('click', addPayable);
   document.getElementById('historyBtn').addEventListener('click', showHistory);
   document.getElementById('closeHistoryBtn').addEventListener('click', () => {
     document.getElementById('historyModal').classList.remove('active');
@@ -935,18 +1254,25 @@
     }
   });
   
-  // Enter key submits forms
-  document.getElementById('amountInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') addExpense();
-  });
-  document.getElementById('purposeInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') addExpense();
+  ['amountInput', 'purposeInput'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', e => {
+      if (e.key === 'Enter') addExpense();
+    });
   });
   document.getElementById('balanceInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') addBalance();
   });
+  ['recvNameInput', 'recvAmountInput', 'recvNoteInput'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', e => {
+      if (e.key === 'Enter') addReceivable();
+    });
+  });
+  ['payNameInput', 'payAmountInput', 'payNoteInput'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', e => {
+      if (e.key === 'Enter') addPayable();
+    });
+  });
   
-  // ========== INIT ==========
   loadAll();
   render();
 </script>
