@@ -182,7 +182,8 @@
     margin-bottom: 6px;
   }
   
-  .form-group input {
+  .form-group input,
+  .form-group select {
     width: 100%;
     background: #0f172a;
     border: 1px solid #334155;
@@ -194,7 +195,8 @@
     font-family: inherit;
   }
   
-  .form-group input:focus {
+  .form-group input:focus,
+  .form-group select:focus {
     outline: none;
     border-color: #06b6d4;
   }
@@ -353,6 +355,20 @@
   }
   
   .action-btn.delete:hover { color: #fb7185; }
+  .action-btn.edit:hover { color: #22d3ee; }
+  
+  .edit-balance-btn {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    display: inline-flex;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .edit-balance-btn:hover { background: rgba(255,255,255,0.3); }
   .action-btn.settle {
     color: #34d399;
     font-size: 0.75rem;
@@ -470,6 +486,13 @@
   
   .modal-body { padding: 20px; overflow-y: auto; }
   
+  .modal.small { max-width: 420px; }
+  .edit-hint { font-size: 0.8rem; color: #94a3b8; margin-bottom: 12px; }
+  .edit-actions { display: flex; gap: 10px; margin-top: 6px; }
+  .edit-actions .btn { flex: 1; }
+  .btn-cancel { background: #334155; }
+  .btn-cancel:hover { background: #475569; filter: none; }
+  
   .history-month {
     background: #0f172a;
     border: 1px solid #334155;
@@ -583,7 +606,7 @@
     <div class="stats-grid">
       <div class="stat-card balance">
         <div class="label">
-          <span>Current Balance</span>
+          <span>Current Balance<button class="edit-balance-btn" id="editBalanceBtn" title="Edit balance"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button></span>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
         </div>
         <div class="value">৳<span id="balanceValue">0.00</span></div>
@@ -838,6 +861,47 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="editModal">
+  <div class="modal small">
+    <div class="modal-header">
+      <h2>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        <span id="editTitle">Edit</span>
+      </h2>
+      <button class="close-btn" id="closeEditBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="edit-hint" id="editHint"></p>
+      <div class="form-group" id="editCategoryGroup">
+        <label>Category</label>
+        <select id="editCategory">
+          <option value="Food">Food</option>
+          <option value="Transportation">Transport</option>
+          <option value="Others">Others</option>
+        </select>
+      </div>
+      <div class="form-group" id="editNameGroup">
+        <label id="editNameLabel">Name</label>
+        <input type="text" id="editName">
+      </div>
+      <div class="form-group" id="editAmountGroup">
+        <label>Amount (৳)</label>
+        <input type="number" id="editAmount" step="0.01" min="0">
+      </div>
+      <div class="form-group" id="editNoteGroup">
+        <label>Note (optional)</label>
+        <input type="text" id="editNote">
+      </div>
+      <div class="edit-actions">
+        <button class="btn btn-cancel" id="cancelEditBtn">Cancel</button>
+        <button class="btn btn-balance" id="saveEditBtn">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   let balance = 0;
   let expenses = [];
@@ -976,6 +1040,9 @@
         </div>
         <div class="expense-right">
           <div class="expense-amount negative">-৳${exp.amount.toFixed(2)}</div>
+          <button class="action-btn edit" data-id="${exp.id}" title="Edit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </button>
           <button class="action-btn delete" data-id="${exp.id}" title="Delete & refund">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
           </button>
@@ -985,6 +1052,9 @@
     
     document.querySelectorAll('#expensesList .action-btn.delete').forEach(btn => {
       btn.addEventListener('click', () => deleteExpense(parseInt(btn.dataset.id)));
+    });
+    document.querySelectorAll('#expensesList .action-btn.edit').forEach(btn => {
+      btn.addEventListener('click', () => openEdit('expense', parseInt(btn.dataset.id)));
     });
   }
   
@@ -1008,6 +1078,9 @@
           <div class="expense-right">
             <div class="expense-amount positive">+৳${d.amount.toFixed(2)}</div>
             <button class="action-btn settle" data-id="${d.id}" data-type="receivable" title="Mark as received">✓ Settle</button>
+            <button class="action-btn edit" data-id="${d.id}" data-type="receivable" title="Edit">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            </button>
             <button class="action-btn delete" data-id="${d.id}" data-type="receivable" title="Delete">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
             </button>
@@ -1032,6 +1105,9 @@
           <div class="expense-right">
             <div class="expense-amount pending">৳${d.amount.toFixed(2)}</div>
             <button class="action-btn settle" data-id="${d.id}" data-type="payable" title="Mark as paid">✓ Settle</button>
+            <button class="action-btn edit" data-id="${d.id}" data-type="payable" title="Edit">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            </button>
             <button class="action-btn delete" data-id="${d.id}" data-type="payable" title="Delete">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
             </button>
@@ -1045,6 +1121,9 @@
     });
     document.querySelectorAll('#receivableList .action-btn.delete, #payableList .action-btn.delete').forEach(btn => {
       btn.addEventListener('click', () => deleteDebt(parseInt(btn.dataset.id), btn.dataset.type));
+    });
+    document.querySelectorAll('#receivableList .action-btn.edit, #payableList .action-btn.edit').forEach(btn => {
+      btn.addEventListener('click', () => openEdit(btn.dataset.type, parseInt(btn.dataset.id)));
     });
   }
   
@@ -1183,6 +1262,118 @@
     showNotification('Entry deleted');
   }
   
+  // Editing: updates the existing entry in place (same id, date and storage keys),
+  // so no records are lost or duplicated.
+  let editing = null;
+  
+  function setShown(id, show) {
+    document.getElementById(id).style.display = show ? 'block' : 'none';
+  }
+  
+  function updateEditPurposeVisibility() {
+    if (!editing || editing.type !== 'expense') return;
+    setShown('editNameGroup', document.getElementById('editCategory').value === 'Others');
+  }
+  
+  function openEdit(type, id) {
+    let item = null;
+    if (type === 'expense') item = expenses.find(e => e.id === id);
+    else if (type === 'receivable') item = receivables.find(r => r.id === id);
+    else if (type === 'payable') item = payables.find(p => p.id === id);
+    if (type !== 'balance' && !item) return;
+    
+    editing = { type, id };
+    
+    const isExpense = type === 'expense';
+    const isDebt = type === 'receivable' || type === 'payable';
+    
+    setShown('editCategoryGroup', isExpense);
+    setShown('editNameGroup', isDebt || (isExpense && item.category === 'Others'));
+    setShown('editAmountGroup', true);
+    setShown('editNoteGroup', isDebt);
+    
+    const titles = { expense: 'Edit Expense', receivable: 'Edit Receivable', payable: 'Edit Payable', balance: 'Edit Balance' };
+    const hints = {
+      expense: 'Changing the amount adjusts your balance by the difference.',
+      receivable: 'Editing does not affect your balance.',
+      payable: 'Editing does not affect your balance.',
+      balance: 'Set your current balance directly (e.g., to correct a mistake).'
+    };
+    document.getElementById('editTitle').textContent = titles[type];
+    document.getElementById('editHint').textContent = hints[type];
+    document.getElementById('editNameLabel').textContent = isExpense ? 'Purpose' : "Person's Name";
+    
+    if (type === 'balance') {
+      document.getElementById('editAmount').value = balance.toFixed(2);
+    } else {
+      document.getElementById('editAmount').value = item.amount;
+    }
+    if (isExpense) {
+      document.getElementById('editCategory').value = item.category;
+      document.getElementById('editName').value = item.category === 'Others' ? item.purpose : '';
+    }
+    if (isDebt) {
+      document.getElementById('editName').value = item.name;
+      document.getElementById('editNote').value = item.note || '';
+    }
+    
+    document.getElementById('editModal').classList.add('active');
+    document.getElementById('editAmount').focus();
+  }
+  
+  function closeEdit() {
+    editing = null;
+    document.getElementById('editModal').classList.remove('active');
+  }
+  
+  function saveEdit() {
+    if (!editing) return;
+    const { type, id } = editing;
+    const amount = parseFloat(document.getElementById('editAmount').value);
+    const name = document.getElementById('editName').value.trim();
+    const note = document.getElementById('editNote').value.trim();
+    
+    if (type === 'balance') {
+      if (isNaN(amount) || amount < 0) { showNotification('Please enter a valid amount'); return; }
+      balance = amount;
+      saveAll();
+      render();
+      closeEdit();
+      showNotification(`Balance set to ৳${amount.toFixed(2)}`);
+      return;
+    }
+    
+    if (!amount || amount <= 0) { showNotification('Please enter a valid amount'); return; }
+    
+    if (type === 'expense') {
+      const exp = expenses.find(e => e.id === id);
+      if (!exp) { closeEdit(); return; }
+      const category = document.getElementById('editCategory').value;
+      if (category === 'Others' && !name) { showNotification('Please enter the purpose'); return; }
+      const diff = amount - exp.amount;
+      if (diff > balance) { showNotification('Amount exceeds your balance!'); return; }
+      
+      exp.category = category;
+      exp.purpose = category === 'Others' ? name : category;
+      exp.amount = amount;
+      balance -= diff;
+    } else {
+      const list = type === 'receivable' ? receivables : payables;
+      const d = list.find(x => x.id === id);
+      if (!d) { closeEdit(); return; }
+      if (!name) { showNotification("Please enter the person's name"); return; }
+      
+      d.name = name;
+      d.amount = amount;
+      d.note = note;
+    }
+    
+    saveAll();
+    render();
+    closeEdit();
+    showNotification('Changes saved');
+  }
+  
   function showHistory() {
     const body = document.getElementById('historyBody');
     
@@ -1252,6 +1443,21 @@
     if (e.target.id === 'historyModal') {
       document.getElementById('historyModal').classList.remove('active');
     }
+  });
+  
+  document.getElementById('editBalanceBtn').addEventListener('click', () => openEdit('balance'));
+  document.getElementById('editCategory').addEventListener('change', updateEditPurposeVisibility);
+  document.getElementById('saveEditBtn').addEventListener('click', saveEdit);
+  document.getElementById('cancelEditBtn').addEventListener('click', closeEdit);
+  document.getElementById('closeEditBtn').addEventListener('click', closeEdit);
+  document.getElementById('editModal').addEventListener('click', (e) => {
+    if (e.target.id === 'editModal') closeEdit();
+  });
+  ['editName', 'editAmount', 'editNote'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', e => {
+      if (e.key === 'Enter') saveEdit();
+      if (e.key === 'Escape') closeEdit();
+    });
   });
   
   ['amountInput', 'purposeInput'].forEach(id => {
